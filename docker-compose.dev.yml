@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: fiber-ops-dashboard-dev
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+      - ./data:/app/data
+      - ./credentials:/app/credentials:ro
+      - ./.env:/app/.env:ro
+    environment:
+      - FLASK_ENV=development
+      - GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID}
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
+      - PROJECT_NAME=${PROJECT_NAME:-Dev-Project}
+    networks:
+      - fiber-net
+    command: python app.py
+
+networks:
+  fiber-net:
+    driver: bridge
