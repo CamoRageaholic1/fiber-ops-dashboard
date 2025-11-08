@@ -1,79 +1,177 @@
-# 🌐 Fiber Ops Dashboard
+# 🚀 Fiber Ops Dashboard
 
-<div align="center">
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Docker](https://img.shields.io/badge/docker-enabled-blue.svg)](https://www.docker.com/)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
+[![Flask](https://img.shields.io/badge/flask-3.0.0-green.svg)](https://flask.palletsprojects.com/)
 
-![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-blue.svg)
-![Python](https://img.shields.io/badge/python-3.11-blue.svg)
-![Docker](https://img.shields.io/badge/docker-required-blue.svg)
-
-**Construction operations dashboard for fiber optic ISP projects**
-
-**⚠️ INDIVIDUALS ONLY - NO COMMERCIAL USE**
-
-</div>
-
----
-
-## 📖 Overview
-
-Real-time construction management system for fiber optic operations. Integrates with Google Sheets for instant project visibility.
-
-**LICENSE:** CC BY-NC-SA 4.0 - **Individual personal use only**. Companies/corporations NOT permitted.
-
----
+A comprehensive construction operations dashboard for fiber optic ISP projects with real-time Google Sheets integration, cost tracking, and productivity monitoring.
 
 ## ✨ Features
 
-- 📊 Real-Time Dashboard with key metrics
-- 🔄 Google Sheets Integration  
-- 💰 Cost Tracking (materials & labor)
-- 📈 Productivity Monitoring
-- 🐳 Docker Deployment
-- 📱 Mobile Responsive
-- 🔐 Self-Hosted & Secure
+- 📊 **Real-time Dashboard** - Live metrics and project status updates
+- 🔄 **Google Sheets Integration** - Automatic data synchronization
+- 💰 **Cost Tracking** - Monitor material and labor expenses
+- 📈 **Progress Monitoring** - Track footage completion across projects
+- 🐳 **Docker Deployment** - Easy setup with containerization
+- 📱 **Mobile Responsive** - Works on all devices
+- 🔒 **Secure** - Service account authentication
+- 📝 **SQLite Database** - Historical data storage
 
----
+## 🎯 Quick Start
 
-## 🚀 Quick Start
+### Prerequisites
 
+- Docker & Docker Compose
+- Google Cloud Service Account with Sheets API access
+- Google Sheet with project data
+
+### Installation
+
+1. **Clone the repository**
 ```bash
 git clone https://github.com/CamoRageaholic1/fiber-ops-dashboard.git
 cd fiber-ops-dashboard
-chmod +x scripts/install.sh
-./scripts/install.sh
-docker-compose build && docker-compose up -d
 ```
 
-Access at: `http://YOUR_SERVER_IP:5000`
+2. **Run the installer** (Ubuntu/Linux)
+```bash
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+3. **Configure environment**
+```bash
+# Edit .env with your settings
+cp .env.example .env
+nano .env
+```
+
+4. **Add Google credentials**
+```bash
+# Place your service account JSON in credentials/
+cp /path/to/your/credentials.json credentials/credentials.json
+```
+
+5. **Start the application**
+```bash
+docker-compose up -d
+```
+
+6. **Access the dashboard**
+```
+http://localhost:5000
+```
+
+## 📖 Documentation
+
+- [Installation Guide](docs/INSTALLATION.md)
+- [Configuration Guide](docs/CONFIGURATION.md)
+- [API Documentation](docs/API.md)
+- [Google Sheets Setup](docs/GOOGLE_SHEETS_SETUP.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+## 🏗️ Architecture
+
+```
+fiber-ops-dashboard/
+├── app/
+│   ├── app.py              # Flask application
+│   ├── requirements.txt    # Python dependencies
+│   └── templates/
+│       └── index.html      # Dashboard UI
+├── scripts/
+│   ├── install.sh          # Automated installer
+│   ├── start.sh            # Start script
+│   ├── stop.sh             # Stop script
+│   └── backup.sh           # Backup script
+├── docs/                   # Documentation
+├── Dockerfile
+├── docker-compose.yml
+└── .env.example
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+
+```env
+GOOGLE_SHEET_ID=your_sheet_id_here
+FLASK_SECRET_KEY=your_secret_key_here
+FLASK_ENV=production
+PROJECT_NAME=Your-Project-Name
+```
+
+### Google Sheets Format
+
+Your Google Sheet should have these columns:
+
+| Project Name | Total Footage | Completed Footage | Material Cost | Labor Cost | Total Cost | Date |
+|--------------|---------------|-------------------|---------------|------------|------------|------|
+
+## 📊 API Endpoints
+
+- `GET /` - Main dashboard
+- `GET /api/health` - Health check
+- `POST /api/sync` - Trigger data sync
+- `GET /api/stats` - Get statistics
+- `GET /api/projects` - Get all projects
+- `GET /api/history` - Get sync history
+
+## 🚀 Deployment
+
+### Docker Compose (Recommended)
+
+```bash
+docker-compose up -d
+```
+
+### Manual Deployment
+
+```bash
+cd app
+pip install -r requirements.txt
+python app.py
+```
+
+## 🛠️ Development
+
+### Development Mode
+
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+### Running Tests
+
+```bash
+# Tests coming soon
+```
+
+## 📝 License
+
+This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+**For Individual Use Only** - Commercial use is prohibited.
+
+See the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+## 📧 Contact
+
+- GitHub: [@CamoRageaholic1](https://github.com/CamoRageaholic1)
+- Issues: [GitHub Issues](https://github.com/CamoRageaholic1/fiber-ops-dashboard/issues)
+
+## 🙏 Acknowledgments
+
+- Built with Flask and Bootstrap
+- Google Sheets API integration
+- Docker for containerization
 
 ---
 
-## 📚 Documentation
-
-Full documentation and all application code coming soon.
-
-Includes:
-- Complete Python/Flask application
-- Google Sheets integration code
-- Database models
-- HTML templates
-- Setup & configuration guides
-- API documentation
-
----
-
-## 💻 Tech Stack
-
-Python 3.11 • Flask • SQLite • Bootstrap 5 • Docker • Google Sheets API
-
----
-
-## 📄 License
-
-**CC BY-NC-SA 4.0** - Individuals only, no commercial use.
-
-See [LICENSE](LICENSE) for details.
-
----
-
-**Built for independent contractors. NOT for corporate use.**
+**⭐ If you find this project helpful, please star it!**
