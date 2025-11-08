@@ -22,6 +22,8 @@ class GoogleSheetsReader:
         if not self.sheet_id:
             raise ValueError("GOOGLE_SHEET_ID not found in environment variables")
 
+        print("✅ Google Sheets reader initialized")
+
     def read_sheet(self, sheet_name, range_name=None):
         """Read data from a specific sheet tab"""
         try:
@@ -40,7 +42,6 @@ class GoogleSheetsReader:
             values = result.get("values", [])
 
             if not values:
-                print(f"No data found in sheet: {sheet_name}")
                 return pd.DataFrame()
 
             # Convert to DataFrame (first row as headers)
@@ -81,29 +82,17 @@ class GoogleSheetsReader:
         """Get splicing data"""
         return self.read_sheet("Splicing")
 
-    def get_flaggers_data(self):
-        """Get flaggers data"""
-        return self.read_sheet("Flaggers")
-
-    def get_fuel_data(self):
-        """Get fuel data"""
-        return self.read_sheet("Fuel")
-
-    def get_truck_maintenance_data(self):
-        """Get truck maintenance data"""
-        return self.read_sheet("Truck Maintenance")
-
     def get_summary_totals(self):
-        """Get pre-calculated totals from specific cells"""
+        """Read summary totals from specific cells"""
         try:
-            # Read Cover Page B11 (Materials total)
-            cover_result = (
+            # Read Materials tab D24 (Materials total)
+            materials_result = (
                 self.service.spreadsheets()
                 .values()
-                .get(spreadsheetId=self.sheet_id, range="Cover Page!B11")
+                .get(spreadsheetId=self.sheet_id, range="Materials!D24")
                 .execute()
             )
-            materials_total = float(cover_result.get("values", [[0]])[0][0] or 0)
+            materials_total = float(materials_result.get("values", [[0]])[0][0] or 0)
 
             # Read Labor tab F34 (Total hours)
             labor_f34_result = (
