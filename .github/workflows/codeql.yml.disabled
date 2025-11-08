@@ -1,0 +1,8 @@
+# This workflow has been disabled because Code Scanning requires GitHub Advanced Security
+# which is only available for public repositories or with a paid GitHub plan.
+#
+# To enable this workflow:
+# 1. Make the repository public, OR
+# 2. Upgrade to GitHub Team/Enterprise with Advanced Security
+#
+# For now, the CI workflow provides sufficient code quality checks.
