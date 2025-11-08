@@ -12,6 +12,8 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("FLASK_SECRET_KEY", "dev-key-change-in-production")
 
+import logging  # logging for error reporting
+
 # Google Sheets Configuration
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
@@ -210,7 +212,8 @@ def projects():
         return jsonify(projects)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        app.logger.exception("Error in /api/projects endpoint")
+        return jsonify({"error": "An internal error occurred."}), 500
 
 
 @app.route("/api/history")
@@ -244,7 +247,8 @@ def history():
         return jsonify(history)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        app.logger.exception("Error in /api/history endpoint")
+        return jsonify({"error": "An internal error occurred."}), 500
 
 
 if __name__ == "__main__":
